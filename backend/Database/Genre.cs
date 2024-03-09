@@ -8,7 +8,7 @@ namespace backend.Database {
     /// </summary>
     public class Genre {
         [Key]
-        public GUID GenreId { get; set; }
+        public Guid GenreId { get; set; }
         public string GenreName { get; set; }
     }
 }
