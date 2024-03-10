@@ -14,9 +14,9 @@ namespace backend.Database {
         public required string Author { get; set; }
         public required string Publisher { get; set; }
         public DateOnly? PublishDate { get; set; }
-        public Genre Genre { get; set; }
-        public BBK BBK { get; set; }
-        public UDK UDK { get; set; }
+        public Genre? Genre { get; set; }
+        public BBK? BBK { get; set; }
+        public UDK? UDK { get; set; }
         public DateOnly? UploadDate { get; set; }
 
         public override string ToString() {

@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -12,22 +10,13 @@ using backend.Models.Login;
 namespace backend.Controllers {
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class AuthController : ControllerBase 
+    public class AuthController(
+        UserManager<AppUser> userManager,
+        IConfiguration configuration) : ControllerBase 
     {
-        private readonly UserManager<AppUser> _userManager;
-        private readonly SignInManager<AppUser> _signInManager;
-        private readonly IConfiguration _configuration;
+        private readonly UserManager<AppUser> _userManager = userManager;
+        private readonly IConfiguration _configuration = configuration;
 
-        public AuthController(
-            UserManager<AppUser> userManager,
-            SignInManager<AppUser> signInManager,
-            IConfiguration configuration)
-        {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _configuration = configuration;
-        }
-        
         [HttpPost("Login")]
         public async Task<IActionResult> Login(LoginViewModel model)
         {

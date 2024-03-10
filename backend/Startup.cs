@@ -6,6 +6,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using backend.Database;
+using MediatR;
+using System.Reflection;
 
 namespace backend {
 
@@ -36,6 +38,7 @@ namespace backend {
             ConfigureAuthentication(services);
             ConfigureSwagger(services);
             ConfigureSession(services);
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
             services.AddControllers();
             services.AddStackExchangeRedisCache(options =>
             {
