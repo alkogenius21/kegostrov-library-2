@@ -4,6 +4,9 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.Features.Books.GetBooks {
+    /// <summary>
+    /// Логика получения списка книг
+    /// </summary>
     public class GetBooksQueryHandler : IRequestHandler<GetBooksQuery, BookListViewModel>
     {
         private readonly ApplicationDbContext _context;
@@ -13,6 +16,12 @@ namespace backend.Features.Books.GetBooks {
             _context = context;
         }
 
+        /// <summary>
+        /// Метод находит книги в базе
+        /// </summary>
+        /// <param name="request">Номер страницы и колчество записей на одной странце</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns>Список книг</returns>
         public async Task<BookListViewModel> Handle(GetBooksQuery request, CancellationToken cancellationToken)
         {
             var books = await _context.Books

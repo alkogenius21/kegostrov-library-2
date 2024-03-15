@@ -2,6 +2,9 @@ using backend.Database;
 using MediatR;
 
 namespace backend.Features.Books.AddBooks {
+    /// <summary>
+    /// Модель данных, требуемых для создания книги в базе
+    /// </summary>
     public class CreateBookCommand : IRequest<Book>
     {
         public required string Title { get; set; }

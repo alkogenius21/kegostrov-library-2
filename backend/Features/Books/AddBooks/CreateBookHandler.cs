@@ -2,6 +2,9 @@ using backend.Database;
 using MediatR;
 
 namespace backend.Features.Books.AddBooks {
+    /// <summary>
+    /// Логика обработки создания книги в базе
+    /// </summary>
     public class CreateBookCommandHandler : IRequestHandler<CreateBookCommand, Book>
     {
         private readonly ApplicationDbContext _context;
@@ -11,6 +14,13 @@ namespace backend.Features.Books.AddBooks {
             _context = context;
         }
 
+        /// <summary>
+        /// Метод создает книгу в базе
+        /// </summary>
+        /// <param name="request">Модель данных для создания Книги</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns>Модель созданной книги</returns>
+        /// <exception cref="Exception">Вызывается, если не найден УДК, ББК, Жанр</exception>
         public async Task<Book> Handle(CreateBookCommand request, CancellationToken cancellationToken)
         {   
             var book = new Book

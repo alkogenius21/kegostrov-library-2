@@ -2,6 +2,9 @@ using backend.Database;
 using MediatR;
 
 namespace backend.Features.Books.PutBooks {
+    /// <summary>
+    /// Модель предствления данных для изменения данных о книге
+    /// </summary>
     public class PutBookCommand : IRequest<Book>
     {
         public Guid BookId { get; set; }

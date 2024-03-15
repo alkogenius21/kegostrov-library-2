@@ -2,6 +2,9 @@ using backend.Database;
 using MediatR;
 
 namespace backend.Features.Books.PutBooks {
+    /// <summary>
+    /// Логика изменений данных о книге
+    /// </summary>
     public class PutBookHandler : IRequestHandler<PutBookCommand, Book> {
         private readonly ApplicationDbContext _context;
 
@@ -10,6 +13,13 @@ namespace backend.Features.Books.PutBooks {
             _context = context;
         }
 
+        /// <summary>
+        /// Метод изменения данных о книге
+        /// </summary>
+        /// <param name="request">Модель данных для изменения книги</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns>Модель представления книги</returns>
+        /// <exception cref="Exception">Вызывается если не найдены: Книга, УДК, ББК, Жанр</exception>
         public async Task<Book> Handle(PutBookCommand request, CancellationToken cancellationToken) {
             var currentBook = await _context.Books.FindAsync(request.BookId);
 
