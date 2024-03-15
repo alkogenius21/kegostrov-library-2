@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers {
 
+    /// <summary>
+    /// Контроллер для работы с книгой
+    /// </summary>
     [ApiController]
     [Route("api/v1/[controller]")]
     public class BooksController : ControllerBase
@@ -20,7 +23,11 @@ namespace backend.Controllers {
             _mediator = mediator;
         }
 
-        
+        /// <summary>
+        /// Метод находит книги в базе данных.
+        /// </summary>
+        /// <param name="query">Параметры запроса</param>
+        /// <returns>Список книг</returns>
         [HttpGet]
         public async Task<ActionResult<BookListViewModel>> GetBooks([FromQuery] GetBooksQuery query)
         {
@@ -28,7 +35,14 @@ namespace backend.Controllers {
             return Ok(result);
         }
 
+        /// <summary>
+        /// Метод находит книгу в базе данных по идентификатору.
+        /// </summary>
+        /// <param name="id">Идентификатор книги</param>
+        /// <returns>Модель представления книги</returns>
         [HttpGet("{id}")]
+        [ProducesResponseType(200, Type = typeof(Book))]
+        [ProducesResponseType(404)]
         public async Task<ActionResult<Book>> GetBookById(Guid id)
         {
             var query = new GetBookByIdQuery { BookId = id };
@@ -42,6 +56,11 @@ namespace backend.Controllers {
             return result;
         }
 
+        /// <summary>
+        /// Метод создает новую книгу в базе данных.
+        /// </summary>
+        /// <param name="command">Модель данных для создания книги</param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult<Book>> AddBook(CreateBookCommand command)
         {
@@ -56,13 +75,19 @@ namespace backend.Controllers {
             
         }
 
+        /// <summary>
+        /// Метод обновляет данные о книге.
+        /// </summary>
+        /// <param name="id">Идентификатор книги</param>
+        /// <param name="command">Модель данных книги</param>
+        /// <returns>Модель представления книги</returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateBook(Guid id, PutBookCommand command)
         {
             try {
                 command.BookId = id;
                 var result = await _mediator.Send(command);
-                return Ok(result);
+                return CreatedAtAction(nameof(GetBookById), new { id = result.BookId }, result);
             }
             catch (Exception ex) {
                 Console.WriteLine(ex.Message);
@@ -70,6 +95,11 @@ namespace backend.Controllers {
             }
         }
 
+        /// <summary>
+        /// Метод удаляет книгу из базы данных.
+        /// </summary>
+        /// <param name="id">Идентификатор книги</param>
+        /// <returns>201 - если книга удалена, 400 - если ошибка</returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBook(Guid id)
         {
