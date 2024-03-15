@@ -12,7 +12,8 @@ namespace backend.Controllers {
     [ApiController]
     public class AuthController(
         UserManager<AppUser> userManager,
-        IConfiguration configuration) : ControllerBase 
+        IConfiguration configuration) 
+        : ControllerBase 
     {
         private readonly UserManager<AppUser> _userManager = userManager;
         private readonly IConfiguration _configuration = configuration;
