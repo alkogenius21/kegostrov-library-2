@@ -1,7 +1,7 @@
 using MediatR;
 using backend.Models.Books;
 
-namespace backend.Features.Books.GetBooks {
+namespace backend.Features.Books {
     /// <summary>
     /// Модель, описывающая пагинацию книг
     /// </summary>

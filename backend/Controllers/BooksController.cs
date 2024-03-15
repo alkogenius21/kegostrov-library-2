@@ -1,8 +1,5 @@
 using backend.Database;
-using backend.Features.Books.AddBooks;
-using backend.Features.Books.DeleteBooks;
-using backend.Features.Books.GetBooks;
-using backend.Features.Books.PutBooks;
+using backend.Features.Books;
 using backend.Models.Books;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

@@ -3,7 +3,7 @@ using backend.Models.Books;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace backend.Features.Books.GetBooks {
+namespace backend.Features.Books {
     /// <summary>
     /// Логика получения списка книг
     /// </summary>

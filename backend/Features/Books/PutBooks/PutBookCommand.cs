@@ -1,7 +1,7 @@
 using backend.Database;
 using MediatR;
 
-namespace backend.Features.Books.PutBooks {
+namespace backend.Features.Books {
     /// <summary>
     /// Модель предствления данных для изменения данных о книге
     /// </summary>

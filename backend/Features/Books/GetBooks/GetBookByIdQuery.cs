@@ -1,7 +1,7 @@
 using backend.Database;
 using MediatR;
 
-namespace backend.Features.Books.GetBooks {
+namespace backend.Features.Books {
     /// <summary>
     /// Id книги в параметрах запроса
     /// </summary>

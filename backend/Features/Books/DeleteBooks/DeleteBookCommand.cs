@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace backend.Features.Books.DeleteBooks {
+namespace backend.Features.Books {
     /// <summary>
     /// Команда с Id книги
     /// </summary>

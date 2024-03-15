@@ -1,7 +1,7 @@
 using backend.Database;
 using MediatR;
 
-namespace backend.Features.Books.AddBooks {
+namespace backend.Features.Books {
     /// <summary>
     /// Логика обработки создания книги в базе
     /// </summary>
