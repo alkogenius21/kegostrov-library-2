@@ -7,8 +7,14 @@ namespace backend.Database {
     /// Класс, описывающий жанры книг
     /// </summary>
     public class Genre {
+        /// <summary>
+        /// Идентификатор жанра
+        /// </summary>
         [Key]
         public Guid GenreId { get; set; }
-        public string GenreName { get; set; }
+        /// <summary>
+        /// Название жанра
+        /// </summary>
+        public required string GenreName { get; set; }
     }
 }

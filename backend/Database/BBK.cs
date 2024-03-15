@@ -6,9 +6,18 @@ namespace backend.Database {
     /// Модель, описывающая ББК код
     /// </summary>
     public class BBK {
+        /// <summary>
+        /// Уникальный идентификатор ББК
+        /// </summary>
         [Key]
         public Guid BbkId { get; set; }
-        public string Type { get; set; }
-        public string Code { get; set; }
+        /// <summary>
+        /// Текстовое значение ББК
+        /// </summary>
+        public required string Type { get; set; }
+        /// <summary>
+        /// Код ББК
+        /// </summary>
+        public required string Code { get; set; }
     }
 }

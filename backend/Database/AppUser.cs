@@ -7,12 +7,30 @@ namespace backend.Database {
     /// Модель, описывающая пользователя
     /// </summary>
     public class AppUser : IdentityUser {
+        /// <summary>
+        /// Имя
+        /// </summary>
         public string? FirstName { get; set; }
+        /// <summary>
+        /// Отчество
+        /// </summary>
         public string? SecondNane {get; set; }
+        /// <summary>
+        /// Фамилия
+        /// </summary>
         public string? LastName { get; set; }
+        /// <summary>
+        /// Дата рождения
+        /// </summary>
         public DateOnly? BirthDate { get; set; }
+        /// <summary>
+        /// Статус активации
+        /// </summary>
         public bool IsActivated { get; set; }
 
+        /// <summary>
+        /// Номер Карточки Библиотечной карты
+        /// </summary>
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long LibraryCardNumber { get; set; }
 

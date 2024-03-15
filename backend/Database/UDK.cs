@@ -6,9 +6,18 @@ namespace backend.Database {
     /// Модель, описывающая УДК код
     /// </summary>
     public class UDK {
+        /// <summary>
+        /// Идентификатор УДК кода
+        /// </summary>
         [Key]
         public Guid UdkId { get; set; }
-        public string Type { get; set; }
-        public string Code { get; set; }
+        /// <summary>
+        /// Текстовая расшифровка УДК кода
+        /// </summary>
+        public required string Type { get; set; }
+        /// <summary>
+        /// Код по справочнику УДК
+        /// </summary>
+        public required string Code { get; set; }
     }
 }

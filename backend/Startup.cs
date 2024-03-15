@@ -24,7 +24,9 @@ namespace backend {
         {
             Configuration = configuration;
         }
-
+        /// <summary>
+        /// Конфигурация приложения.
+        /// </summary>
         public IConfiguration Configuration { get; }
         
         /// <summary>
