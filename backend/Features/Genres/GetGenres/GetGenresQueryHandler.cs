@@ -3,7 +3,7 @@ using backend.Models.Genres;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace backend.Features.Genres.GetGenres {
+namespace backend.Features.Genres {
     public class GetGenresQueryHandler : IRequestHandler<GetGenresQuery, GenresListViewModel> {
         private readonly ApplicationDbContext _context;
 

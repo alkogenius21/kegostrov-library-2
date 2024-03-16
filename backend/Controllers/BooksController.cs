@@ -14,7 +14,11 @@ namespace backend.Controllers {
     public class BooksController : ControllerBase
     {
         private readonly IMediator _mediator;
-
+        
+        /// <summary>
+        /// Конструктор класса
+        /// </summary>
+        /// <param name="mediator">экземпляр класса MediaTr</param>
         public BooksController(IMediator mediator)
         {
             _mediator = mediator;
