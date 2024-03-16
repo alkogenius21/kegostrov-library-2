@@ -1,15 +1,13 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
-using backend.Database;
-using MediatR;
+using LibraryBackend.Database;
 using System.Reflection;
 
-namespace backend {
+namespace LibraryBackend {
 
     /// <summary>
     /// Описание конфигурации приложения
@@ -41,6 +39,7 @@ namespace backend {
             ConfigureSwagger(services);
             ConfigureSession(services);
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
+            services.AddHealthChecks();
             services.AddControllers();
             services.AddStackExchangeRedisCache(options =>
             {
@@ -101,7 +100,7 @@ namespace backend {
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Kegostrov Library Backend Api", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Kegostrov Library LibraryBackend Api", Version = "v1" });
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Description = "JWT Authorization header using the Bearer scheme",
@@ -155,10 +154,11 @@ namespace backend {
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Kegostrov Library Backend Api v1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Kegostrov Library LibraryBackend Api v1");
             });
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHealthChecks("/health");
                 endpoints.MapControllers();
             });
         }

@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace backend.Database {
+namespace LibraryBackend.Database {
     /// <summary>
     /// Модель, описывающая УДК код
     /// </summary>

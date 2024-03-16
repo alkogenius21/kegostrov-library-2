@@ -1,7 +1,7 @@
-using backend.Database;
+using LibraryBackend.Database;
 using MediatR;
 
-namespace backend.Features.Books {
+namespace LibraryBackend.Features.Books {
     /// <summary>
     /// Логика обработки удаления книги из базы
     /// </summary>

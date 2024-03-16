@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace backend.Database {
+namespace LibraryBackend.Database {
     /// <summary>
     /// Модель, описывающая пользователя
     /// </summary>

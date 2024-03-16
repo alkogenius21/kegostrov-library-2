@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace backend.Features.Books {
+namespace LibraryBackend.Features.Books {
     /// <summary>
     /// Команда с Id книги
     /// </summary>

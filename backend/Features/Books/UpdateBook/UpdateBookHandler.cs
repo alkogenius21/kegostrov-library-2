@@ -1,14 +1,14 @@
-using backend.Database;
+using LibraryBackend.Database;
 using MediatR;
 
-namespace backend.Features.Books {
+namespace LibraryBackend.Features.Books {
     /// <summary>
     /// Логика изменений данных о книге
     /// </summary>
-    public class PutBookHandler : IRequestHandler<PutBookCommand, Book> {
+    public class UpdateBookHandler : IRequestHandler<UpdateBookCommand, Book> {
         private readonly ApplicationDbContext _context;
 
-        public PutBookHandler(ApplicationDbContext context)
+        public UpdateBookHandler(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -20,7 +20,7 @@ namespace backend.Features.Books {
         /// <param name="cancellationToken"></param>
         /// <returns>Модель представления книги</returns>
         /// <exception cref="Exception">Вызывается если не найдены: Книга, УДК, ББК, Жанр</exception>
-        public async Task<Book> Handle(PutBookCommand request, CancellationToken cancellationToken) {
+        public async Task<Book> Handle(UpdateBookCommand request, CancellationToken cancellationToken) {
             var currentBook = await _context.Books.FindAsync(request.BookId);
 
             if (currentBook == null) {
@@ -28,7 +28,6 @@ namespace backend.Features.Books {
             }
             currentBook.Title = request.Title ?? currentBook.Title;
             currentBook.Description = request.Description ?? currentBook.Description;
-            currentBook.Author = request.Author ?? currentBook.Author;
             currentBook.Publisher = request.Publisher ?? currentBook.Publisher;
             currentBook.PublishDate = request.PublishDate ?? currentBook.PublishDate;
 
@@ -66,6 +65,17 @@ namespace backend.Features.Books {
                 else 
                 {
                     throw new Exception("ОШИБКА: Не удалось найти жанр");
+                }
+            }
+
+            if (request.AuthorId.HasValue) {
+                var author = await _context.Authors.FindAsync(request.AuthorId);
+                if (author!= null) {
+                    currentBook.Author = author?? currentBook.Author;
+                }
+                else 
+                {
+                    throw new Exception("ОШИБКА: Не удалось найти автора");
                 }
             }
 

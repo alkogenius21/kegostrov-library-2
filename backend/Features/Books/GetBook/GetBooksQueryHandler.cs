@@ -1,9 +1,9 @@
-using backend.Database;
-using backend.Models.Books;
+using LibraryBackend.Database;
+using LibraryBackend.Models.Books;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace backend.Features.Books {
+namespace LibraryBackend.Features.Books {
     /// <summary>
     /// Логика получения списка книг
     /// </summary>
@@ -26,6 +26,10 @@ namespace backend.Features.Books {
         {
             var books = await _context.Books
                 .OrderByDescending(b => b.UploadDate)
+                .Include(book => book.Genre)
+                .Include(book => book.BBK)
+                .Include(book => book.UDK)
+                .Include(book => book.Author)
                 .Skip((request.Page - 1) * request.PageSize)
                 .Take(request.PageSize)
                 .ToListAsync(cancellationToken: cancellationToken);

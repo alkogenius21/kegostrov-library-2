@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using backend.Database;
+using LibraryBackend.Database;
 
 #nullable disable
 
-namespace backend.Migrations
+namespace LibraryBackend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20240316000147_RequiredFields")]
@@ -157,7 +157,7 @@ namespace backend.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("backend.Database.AppUser", b =>
+            modelBuilder.Entity("LibraryBackend.Database.AppUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text");
@@ -242,7 +242,7 @@ namespace backend.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("backend.Database.BBK", b =>
+            modelBuilder.Entity("LibraryBackend.Database.BBK", b =>
                 {
                     b.Property<Guid>("BbkId")
                         .ValueGeneratedOnAdd()
@@ -261,7 +261,7 @@ namespace backend.Migrations
                     b.ToTable("BBKS");
                 });
 
-            modelBuilder.Entity("backend.Database.Book", b =>
+            modelBuilder.Entity("LibraryBackend.Database.Book", b =>
                 {
                     b.Property<Guid>("BookId")
                         .ValueGeneratedOnAdd()
@@ -309,7 +309,7 @@ namespace backend.Migrations
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("backend.Database.Genre", b =>
+            modelBuilder.Entity("LibraryBackend.Database.Genre", b =>
                 {
                     b.Property<Guid>("GenreId")
                         .ValueGeneratedOnAdd()
@@ -324,7 +324,7 @@ namespace backend.Migrations
                     b.ToTable("Genres");
                 });
 
-            modelBuilder.Entity("backend.Database.LibraryCard", b =>
+            modelBuilder.Entity("LibraryBackend.Database.LibraryCard", b =>
                 {
                     b.Property<Guid>("LibraryCardId")
                         .ValueGeneratedOnAdd()
@@ -357,7 +357,7 @@ namespace backend.Migrations
                     b.ToTable("LibraryCards");
                 });
 
-            modelBuilder.Entity("backend.Database.NewsItem", b =>
+            modelBuilder.Entity("LibraryBackend.Database.NewsItem", b =>
                 {
                     b.Property<Guid>("NewsItemId")
                         .ValueGeneratedOnAdd()
@@ -390,7 +390,7 @@ namespace backend.Migrations
                     b.ToTable("NewsItems");
                 });
 
-            modelBuilder.Entity("backend.Database.UDK", b =>
+            modelBuilder.Entity("LibraryBackend.Database.UDK", b =>
                 {
                     b.Property<Guid>("UdkId")
                         .ValueGeneratedOnAdd()
@@ -420,7 +420,7 @@ namespace backend.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("backend.Database.AppUser", null)
+                    b.HasOne("LibraryBackend.Database.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -429,7 +429,7 @@ namespace backend.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("backend.Database.AppUser", null)
+                    b.HasOne("LibraryBackend.Database.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -444,7 +444,7 @@ namespace backend.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("backend.Database.AppUser", null)
+                    b.HasOne("LibraryBackend.Database.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -453,24 +453,24 @@ namespace backend.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("backend.Database.AppUser", null)
+                    b.HasOne("LibraryBackend.Database.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("backend.Database.Book", b =>
+            modelBuilder.Entity("LibraryBackend.Database.Book", b =>
                 {
-                    b.HasOne("backend.Database.BBK", "BBK")
+                    b.HasOne("LibraryBackend.Database.BBK", "BBK")
                         .WithMany()
                         .HasForeignKey("BbkId");
 
-                    b.HasOne("backend.Database.Genre", "Genre")
+                    b.HasOne("LibraryBackend.Database.Genre", "Genre")
                         .WithMany()
                         .HasForeignKey("GenreId");
 
-                    b.HasOne("backend.Database.UDK", "UDK")
+                    b.HasOne("LibraryBackend.Database.UDK", "UDK")
                         .WithMany()
                         .HasForeignKey("UdkId");
 
@@ -481,13 +481,13 @@ namespace backend.Migrations
                     b.Navigation("UDK");
                 });
 
-            modelBuilder.Entity("backend.Database.LibraryCard", b =>
+            modelBuilder.Entity("LibraryBackend.Database.LibraryCard", b =>
                 {
-                    b.HasOne("backend.Database.AppUser", "AppUser")
+                    b.HasOne("LibraryBackend.Database.AppUser", "AppUser")
                         .WithMany()
                         .HasForeignKey("AppUserId");
 
-                    b.HasOne("backend.Database.Book", "Book")
+                    b.HasOne("LibraryBackend.Database.Book", "Book")
                         .WithMany()
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -498,9 +498,9 @@ namespace backend.Migrations
                     b.Navigation("Book");
                 });
 
-            modelBuilder.Entity("backend.Database.NewsItem", b =>
+            modelBuilder.Entity("LibraryBackend.Database.NewsItem", b =>
                 {
-                    b.HasOne("backend.Database.AppUser", "Author")
+                    b.HasOne("LibraryBackend.Database.AppUser", "Author")
                         .WithMany()
                         .HasForeignKey("AuthorId");
 

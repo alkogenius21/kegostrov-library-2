@@ -1,5 +1,5 @@
 
-namespace backend.Models.Login {
+namespace LibraryBackend.Models.Login {
     /// <summary>
     /// Модель логина и пароля для получения пост запроса
     /// </summary>

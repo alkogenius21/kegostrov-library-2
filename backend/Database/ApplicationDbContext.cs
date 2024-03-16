@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace backend.Database {
+namespace LibraryBackend.Database {
     /// <summary>
     /// Контекст базы данных приложения
     /// </summary>
@@ -15,6 +15,10 @@ namespace backend.Database {
             : base(options) 
             {
             }
+            /// <summary>
+            /// Автор книги
+            /// </summary>
+            public DbSet<Author> Authors { get; set; }
             /// <summary>
             /// Книги
             /// </summary>

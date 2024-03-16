@@ -1,7 +1,7 @@
-using backend.Database;
+using LibraryBackend.Database;
 using MediatR;
 
-namespace backend.Features.Books {
+namespace LibraryBackend.Features.Books {
     /// <summary>
     /// Id книги в параметрах запроса
     /// </summary>

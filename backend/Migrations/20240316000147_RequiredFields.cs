@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace backend.Migrations
+namespace LibraryBackend.Migrations
 {
     /// <inheritdoc />
     public partial class RequiredFields : Migration

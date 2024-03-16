@@ -1,10 +1,10 @@
-using backend.Database;
-using backend.Features.Books;
-using backend.Models.Books;
+using LibraryBackend.Database;
+using LibraryBackend.Features.Books;
+using LibraryBackend.Models.Books;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace backend.Controllers {
+namespace LibraryBackend.Controllers {
 
     /// <summary>
     /// Контроллер для работы с книгой
@@ -83,8 +83,34 @@ namespace backend.Controllers {
         /// <param name="command">Модель данных книги</param>
         /// <returns>Модель представления книги</returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateBook(Guid id, PutBookCommand command)
+        public async Task<IActionResult> UpdateBook(Guid id, UpdateBookCommand command)
         {
+            if (id != command.BookId)
+            {
+                return BadRequest("ОШИБКА: Идентификатор книги не совпадает с передаными данными");
+            }
+            try {
+                command.BookId = id;
+                var result = await _mediator.Send(command);
+                return CreatedAtAction(nameof(GetBookById), new { id = result.BookId }, result);
+            }
+            catch (Exception ex) {
+                Console.WriteLine(ex.Message);
+                return BadRequest(ex.Message);
+            }
+        }
+        /// <summary>
+        /// Метод частично обновляет данные о книге.
+        /// </summary>
+        /// <param name="id">Идентификатор книги</param>
+        /// <param name="command">Модель данных книги</param>
+        /// <returns>Представление книги</returns>
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> PatchBook(Guid id, UpdateBookCommand command) {
+            if (id != command.BookId)
+            {
+                return BadRequest("ОШИБКА: Идентификатор книги не совпадает с передаными данными");
+            }
             try {
                 command.BookId = id;
                 var result = await _mediator.Send(command);

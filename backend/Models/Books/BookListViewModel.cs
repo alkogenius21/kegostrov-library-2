@@ -1,6 +1,6 @@
-using backend.Database;
+using LibraryBackend.Database;
 
-namespace backend.Models.Books {
+namespace LibraryBackend.Models.Books {
     /// <summary>
     /// Модель представления списка книг
     /// </summary>

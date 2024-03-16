@@ -1,7 +1,7 @@
-using backend.Database;
+using LibraryBackend.Database;
 using MediatR;
 
-namespace backend.Features.Genres {
+namespace LibraryBackend.Features.Genres {
     /// <summary>
     /// Модель представления данных для создания записи жанров
     /// </summary>

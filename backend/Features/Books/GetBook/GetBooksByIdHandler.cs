@@ -1,7 +1,8 @@
-using backend.Database;
+using LibraryBackend.Database;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
-namespace backend.Features.Books {
+namespace LibraryBackend.Features.Books {
     /// <summary>
     /// Логика получения книги из базы по его Id
     /// </summary>
@@ -22,7 +23,12 @@ namespace backend.Features.Books {
         /// <returns>Модель данных найденной книги</returns>
         public async Task<Book> Handle(GetBookByIdQuery request, CancellationToken cancellationToken)
         {
-            var response = await _context.Books.FindAsync(request.BookId);
+            var response = await _context.Books
+            .Include(book => book.Genre)
+            .Include(book => book.BBK)
+            .Include(book => book.UDK)
+            .Include(book => book.Author)
+            .FirstOrDefaultAsync(b => b.BookId == request.BookId);
             return response;
         }
     }

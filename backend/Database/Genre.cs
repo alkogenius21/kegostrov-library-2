@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace backend.Database {
+namespace LibraryBackend.Database {
 
     /// <summary>
     /// Класс, описывающий жанры книг

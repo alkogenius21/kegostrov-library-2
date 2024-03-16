@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace backend.Migrations
+namespace LibraryBackend.Migrations
 {
     /// <inheritdoc />
     public partial class UpdateBook : Migration

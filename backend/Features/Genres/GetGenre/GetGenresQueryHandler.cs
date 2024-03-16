@@ -1,9 +1,9 @@
-using backend.Database;
-using backend.Models.Genres;
+using LibraryBackend.Database;
+using LibraryBackend.Models.Genres;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace backend.Features.Genres {
+namespace LibraryBackend.Features.Genres {
     public class GetGenresQueryHandler : IRequestHandler<GetGenresQuery, GenresListViewModel> {
         private readonly ApplicationDbContext _context;
 

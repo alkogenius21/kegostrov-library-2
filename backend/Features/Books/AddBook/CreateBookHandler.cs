@@ -1,7 +1,7 @@
-using backend.Database;
+using LibraryBackend.Database;
 using MediatR;
 
-namespace backend.Features.Books {
+namespace LibraryBackend.Features.Books {
     /// <summary>
     /// Логика обработки создания книги в базе
     /// </summary>
@@ -27,7 +27,6 @@ namespace backend.Features.Books {
             {
                 Title = request.Title,
                 Description = request.Description,
-                Author = request.Author,
                 Publisher = request.Publisher,
                 PublishDate = request.PublishDate,
                 UploadDate = DateOnly.FromDateTime(DateTime.Now)
@@ -67,6 +66,17 @@ namespace backend.Features.Books {
                 else 
                 {
                     throw new Exception("ОШИБКА: Не удалось найти жанр");
+                }
+            }
+
+            if (request.AuthorId.HasValue) {
+                var author = await _context.Authors.FindAsync(request.AuthorId);
+                if (author!= null) {
+                    book.Author = author;
+                }
+                else 
+                {
+                    throw new Exception("ОШИБКА: Не удалось найти автора");
                 }
             }
 

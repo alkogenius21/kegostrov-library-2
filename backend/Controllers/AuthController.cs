@@ -4,10 +4,10 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using backend.Database;
-using backend.Models.Login;
+using LibraryBackend.Database;
+using LibraryBackend.Models.Login;
 
-namespace backend.Controllers {
+namespace LibraryBackend.Controllers {
     [Route("api/v1/[controller]")]
     [ApiController]
     public class AuthController(

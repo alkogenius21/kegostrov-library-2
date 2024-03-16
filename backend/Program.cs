@@ -1,4 +1,4 @@
-namespace backend {
+namespace LibraryBackend {
     /// <summary>
     /// Класс Program служит точкой входа в приложение.
     /// </summary>

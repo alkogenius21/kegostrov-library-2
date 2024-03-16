@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace backend.Database {
+namespace LibraryBackend.Database {
     /// <summary>
     /// Модель, описывающая книгу
     /// </summary>
@@ -23,7 +23,7 @@ namespace backend.Database {
         /// <summary>
         /// Автор книги
         /// </summary>
-        public required string Author { get; set; }
+        public Author? Author { get; set; }
         /// <summary>
         /// Издательство книги
         /// </summary>

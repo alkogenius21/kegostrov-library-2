@@ -1,6 +1,6 @@
-using backend.Database;
+using LibraryBackend.Database;
 
-namespace backend.Models.Genres {
+namespace LibraryBackend.Models.Genres {
 
     /// <summary>
     /// Модель представления жанров
