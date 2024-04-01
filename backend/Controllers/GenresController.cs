@@ -48,10 +48,35 @@ namespace LibraryBackend.Controllers {
             return result;
         }
 
+        /// <summary>
+        /// Контроллер для создания жанра
+        /// </summary>
+        /// <param name="command">Тело запроса</param>
+        /// <returns>Созданный жанр</returns>
         [HttpPost]
         public async Task<IActionResult> CreateGenre(CreateGenreCommand command) {
-            var result = await _mediator.Send(command);
-            return Ok(result);
+            try {
+                var result = await _mediator.Send(command);
+                return CreatedAtAction(nameof(GetGenre), new { id = result.GenreId }, result);
+            }
+            catch (Exception ex) {
+                return BadRequest(ex.Message);
+            }
+        }
+        /// <summary>
+        /// Контроллер обновляет данные по жанру
+        /// </summary>
+        /// <param name="command">Тело запроса</param>
+        /// <returns>Измененный жанр</returns>
+        [HttpPut]
+        public async Task<IActionResult> UpdateGenre(UpdateGenreCommand command) {
+            try {
+                var result = await _mediator.Send(command);
+                return CreatedAtAction(nameof(GetGenre), new { id = result.GenreId }, result);
+            }
+            catch (Exception ex) {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

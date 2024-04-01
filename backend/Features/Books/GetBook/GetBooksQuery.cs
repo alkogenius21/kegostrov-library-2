@@ -15,5 +15,9 @@ namespace LibraryBackend.Features.Books {
         /// Размер страницы
         /// </summary>
         public int PageSize { get; set; }
+        public string? Title { get; set; }
+        public string? Description { get; set; }
+        public string? Publisher { get; set; }
+        public DateOnly? PublishDate { get; set; }
     }
 }

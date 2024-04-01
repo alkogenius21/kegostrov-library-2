@@ -2,6 +2,9 @@ using LibraryBackend.Database;
 using LibraryBackend.Models.Books;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using StackExchange.Redis;
+using Newtonsoft.Json;
+
 
 namespace LibraryBackend.Features.Books {
     /// <summary>
@@ -10,9 +13,11 @@ namespace LibraryBackend.Features.Books {
     public class GetBooksQueryHandler : IRequestHandler<GetBooksQuery, BookListViewModel>
     {
         private readonly ApplicationDbContext _context;
+        private readonly ConnectionMultiplexer _redis;
 
-        public GetBooksQueryHandler(ApplicationDbContext context)
+        public GetBooksQueryHandler(ApplicationDbContext context, ConnectionMultiplexer redis)
         {
+            _redis = redis;
             _context = context;
         }
 
@@ -24,20 +29,43 @@ namespace LibraryBackend.Features.Books {
         /// <returns>Список книг</returns>
         public async Task<BookListViewModel> Handle(GetBooksQuery request, CancellationToken cancellationToken)
         {
-            var books = await _context.Books
-                .OrderByDescending(b => b.UploadDate)
+            var cacheKey = $"books:{request.Page}:{request.PageSize}";
+            var cachedBooks = await _redis.GetDatabase().StringGetAsync(cacheKey);
+
+            if (!cachedBooks.IsNullOrEmpty)
+            {
+                return JsonConvert.DeserializeObject<BookListViewModel>(cachedBooks);
+            }
+
+            var booksQuery = _context.Books
                 .Include(book => book.Genre)
                 .Include(book => book.BBK)
                 .Include(book => book.UDK)
                 .Include(book => book.Author)
+                .OrderByDescending(b => b.UploadDate);
+
+            if (!string.IsNullOrEmpty(request.Title))
+                booksQuery = (IOrderedQueryable<Book>)booksQuery.Where(b => b.Title.Contains(request.Title));
+            if (!string.IsNullOrEmpty(request.Description))
+                booksQuery = (IOrderedQueryable<Book>)booksQuery.Where(b => b.Description.Contains(request.Description));
+            if (!string.IsNullOrEmpty(request.Publisher))
+                booksQuery = (IOrderedQueryable<Book>)booksQuery.Where(b => b.Publisher.Contains(request.Publisher));
+            if (request.PublishDate.HasValue)
+                booksQuery = (IOrderedQueryable<Book>)booksQuery.Where(b => b.PublishDate == request.PublishDate);
+
+            var books = await booksQuery
                 .Skip((request.Page - 1) * request.PageSize)
                 .Take(request.PageSize)
-                .ToListAsync(cancellationToken: cancellationToken);
+                .ToListAsync(cancellationToken);
 
-            return new BookListViewModel
+            var viewModel = new BookListViewModel
             {
                 Books = books
             };
+
+            await _redis.GetDatabase().StringSetAsync(cacheKey, JsonConvert.SerializeObject(viewModel), TimeSpan.FromMinutes(10));
+
+            return viewModel;
         }
     }
 }

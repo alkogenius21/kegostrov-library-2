@@ -7,6 +7,7 @@ namespace LibraryBackend.Features.Books {
     /// </summary>
     public class UpdateBookCommand : IRequest<Book>
     {
+#pragma warning disable CS1591
         public Guid BookId { get; set; }
         public required string Title { get; set; }
         public required string Description { get; set; }

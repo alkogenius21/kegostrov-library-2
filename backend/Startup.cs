@@ -6,6 +6,7 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using LibraryBackend.Database;
 using System.Reflection;
+using StackExchange.Redis;
 
 namespace LibraryBackend {
 
@@ -44,7 +45,12 @@ namespace LibraryBackend {
             services.AddStackExchangeRedisCache(options =>
             {
                 options.Configuration = "localhost:6379";
-                options.InstanceName = "UserList";
+                options.InstanceName = "LibraryBackend";
+            });
+            services.AddSingleton<ConnectionMultiplexer>(sp =>
+            {
+                var configuration = "localhost:6379";
+                return ConnectionMultiplexer.Connect(configuration);
             });
         }
 
